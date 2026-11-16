@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class PlayershipMovement : MonoBehaviour
 {
@@ -26,10 +27,14 @@ public class PlayershipMovement : MonoBehaviour
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.inertiaTensorRotation = Quaternion.identity;
+    }
+
+    private void OnEnable()
+    {
         input = InputBase.Instance;
         input.halt += InitiateHalt;
-
-        rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -55,6 +60,8 @@ public class PlayershipMovement : MonoBehaviour
                 Debug.LogError("BURNER STATUS CASE NOT CONSIDERED");
                 break;
         }
+
+        HandleRotation();
     }
     
     void handleIdling()
@@ -136,13 +143,17 @@ public class PlayershipMovement : MonoBehaviour
             onHalt?.Invoke(false);
             return; // CANNOT HALT WHILE THROTTLE APPLIED.
         }
+        if (currentStatus == burnerStatus.halting)
+        {
+            return; // No error message really needed. Halt is already happening.
+        }
         onHalt?.Invoke(true);
         currentStatus = burnerStatus.halting;
     }
 
     void handleHalting()
     {
-        if (input.throttle > 0)
+        if (input.throttle > 0) // EXIT CONDITION #1
         {
             // DISCRETE BLOCK
             onSpool?.Invoke();
@@ -150,19 +161,33 @@ public class PlayershipMovement : MonoBehaviour
         }
         else
         {
-            // CONTINUOUS BLOCK
-            Vector3 desiredAcceleration = -rb.linearVelocity * rb.mass / Time.fixedDeltaTime;
-            Vector3 brakingAcceleration = Vector3.ClampMagnitude(desiredAcceleration, flightModel.decelerationForce);
-            rb.AddForce(brakingAcceleration);
-            
-            if (rb.linearVelocity.magnitude < 0.05f)
+            if (rb.linearVelocity.magnitude < 0.05f) // EXIT CONDITION #2
             {
+                // DISCRETE BLOCK
                 rb.linearVelocity = Vector3.zero;
                 currentStatus = burnerStatus.idling;
                 finishedHalting?.Invoke();
                 onIdle?.Invoke();
+                return;
             }
+            // CONTINUOUS BLOCK
+            Vector3 desiredAcceleration = -rb.linearVelocity * rb.mass / Time.fixedDeltaTime;
+            Vector3 brakingAcceleration = Vector3.ClampMagnitude(desiredAcceleration, flightModel.decelerationForce);
+            rb.AddForce(brakingAcceleration);
+            whileHalting?.Invoke(rb.linearVelocity.magnitude);
         }
+    }
+
+    void HandleRotation()
+    {
+        rb.maxAngularVelocity = flightModel.angularMaxSpeed;
+
+        float pitchForce = input.rotate.y * flightModel.angularForce;
+        float rollForce = -input.rotate.x * flightModel.angularForce;
+
+        Vector3 RotationalForce = new Vector3(pitchForce, 0f, rollForce);
+
+        rb.AddRelativeTorque(RotationalForce);
     }
 
     private void OnDestroy()

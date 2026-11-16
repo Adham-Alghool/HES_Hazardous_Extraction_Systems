@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PlayerFlightModel
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFlightModel
   engineSpoolTime: 0.8
-  acceleration: 15
+  acceleration: 45
   kickForce: 80
-  angularForce: 8
-  angularMaxSpeed: 10
+  angularForce: 4.2
+  angularMaxSpeed: 100
   overspeedCondition: 200
   decelerationForce: 80

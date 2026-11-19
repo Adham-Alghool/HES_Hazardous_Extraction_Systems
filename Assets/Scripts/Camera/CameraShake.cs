@@ -1,5 +1,5 @@
-using UnityEngine;
 using Unity.Cinemachine;
+using UnityEngine;
 
 
 public class CameraShake : MonoBehaviour
@@ -10,10 +10,17 @@ public class CameraShake : MonoBehaviour
     [SerializeField] CinemachineImpulseSource kickImpulse;
     [SerializeField] CinemachineImpulseSource haltImpulse;
 
-    [Header("Speed Rumble Effects")]
+    [Header("High Speed Effects")]
     [Tooltip("The max speed at which the camera's max speed-related shake will take place")]
-    [SerializeField] private float maxSpeedCap = 250f;
-    [SerializeField] private float maxAmplitude = 2f;
+    [SerializeField] float maxSpeedCap = 250f;
+    [Tooltip("Self explanatory. Are you stupid or something?")]
+    [SerializeField] float maxAmplitude = 2f;
+
+    [Header("Halt Initiation Effects")]
+    [Tooltip("The maximum speed at which maximum shake should be used")]
+    [SerializeField] float maxHaltShakeSpeed = 1000f;
+    [Tooltip("You are REALLY stupid")]
+    [SerializeField] float maxHaltShakeStrength = 3f;
 
     private CinemachineBasicMultiChannelPerlin baseShake;
 
@@ -49,9 +56,6 @@ public class CameraShake : MonoBehaviour
     {
         kickImpulse.GenerateImpulseWithForce(1f);
     }
-
-    [SerializeField] float maxHaltShakeSpeed = 1000f;
-    [SerializeField] float maxHaltShakeStrength = 3f;
 
     void Halt(bool successful)
     {

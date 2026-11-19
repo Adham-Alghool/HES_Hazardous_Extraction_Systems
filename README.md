@@ -16,5 +16,5 @@ Borrowed Assets:
 Skybox: alexandr-melas on cgtrader. Royalty-free license. Available for use in commercial works. 
 Viper/Hornet Font: 0x408 on GitHub. MIT license.
 
-Programmer: Adham Alghool
-3D Modeler / Texturer / Collaborator: Hans Vondrell
+Programmer: Adham Alghool , Adhams.Alghool@gmail.com
+3D Modeler / Texturer / Collaborator: Hans Vondrell , hansvondrell@gmail.com

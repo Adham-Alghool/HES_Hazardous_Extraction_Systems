@@ -28,6 +28,7 @@ This project currently uses Unity's Cinemachine 3, TextMeshPro, and FMOD.
 **BORROWED ASSETS:**
 
 Skybox: alexandr-melas on cgtrader. Royalty-free license. Available for use in commercial works. 
+
 Viper/Hornet Font: 0x408 on GitHub. MIT license.
 
 **CREDITS:**

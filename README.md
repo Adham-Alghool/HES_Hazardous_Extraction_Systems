@@ -10,6 +10,7 @@ Git LFS is required for installation.
 This project currently uses Unity's Cinemachine 3, TextMeshPro, and FMOD.
 
 Architecture Briefing:
+
 All "data" (names, stats, settings, FMOD events, etc.) are held within Unity's ScriptableObjects.
 ScriptableObject scripts are found in the assets/scripts/scriptableobjects folder. Their corresponding assets are found in the assets/data folder.
 Globals are used to share real-time data (input, velocities, etc.) with the rest of the game.

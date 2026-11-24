@@ -33,5 +33,7 @@ Viper/Hornet Font: 0x408 on GitHub. MIT license.
 **CREDITS:**
 
 Programmer: Adham Alghool , Adhams.Alghool@gmail.com
+
 3D Modeler / Texturer / Collaborator: Hans Vondrell , hansvondrell@gmail.com
+
 Music Producer: Logan Myer

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{149abec9-f4e2-44c2-8822-a71b4fd45061}">
+		<property name="assetPath">
+			<value>Music/Unresolved Requirements.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>203.97773242630385</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{638f3070-56e3-46b7-983d-42418251b771}</destination>
+		</relationship>
+	</object>
+</objects>

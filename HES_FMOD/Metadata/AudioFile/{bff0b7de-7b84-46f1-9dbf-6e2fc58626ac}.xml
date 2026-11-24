@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{bff0b7de-7b84-46f1-9dbf-6e2fc58626ac}">
+		<property name="assetPath">
+			<value>Music/Faster Than Stationary.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>153.65224489795918</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{638f3070-56e3-46b7-983d-42418251b771}</destination>
+		</relationship>
+	</object>
+</objects>

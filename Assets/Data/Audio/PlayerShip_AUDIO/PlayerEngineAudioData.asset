@@ -19,3 +19,17 @@ MonoBehaviour:
       Data3: -963155059
       Data4: 619460679
     Path: event:/EngineKickSFX
+  engineSpoolEvent:
+    Guid:
+      Data1: -1724843314
+      Data2: 1157183743
+      Data3: 1331346577
+      Data4: -1074159881
+    Path: event:/EngineSpoolSFX
+  engineHaltLoopEvent:
+    Guid:
+      Data1: 721298148
+      Data2: 1112803289
+      Data3: 585499564
+      Data4: -1731633308
+    Path: event:/EngineHaltSFX

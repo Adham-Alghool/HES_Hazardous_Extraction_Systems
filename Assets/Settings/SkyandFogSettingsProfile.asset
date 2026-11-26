@@ -76,7 +76,7 @@ MonoBehaviour:
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   maxFogDistance:
     m_OverrideState: 1
-    m_Value: 229.6
+    m_Value: 612.4
   mipFogMaxMip:
     m_OverrideState: 0
     m_Value: 0.5
@@ -94,7 +94,7 @@ MonoBehaviour:
     m_Value: 100000
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 32
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
@@ -103,7 +103,7 @@ MonoBehaviour:
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   globalLightProbeDimmer:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   depthExtent:
     m_OverrideState: 1
     m_Value: 0.1
@@ -161,7 +161,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 2.2
+    m_Value: 4
   multiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -209,22 +209,22 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   scrollOrientation:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
-      mode: 1
+      mode: 2
       customValue: 0
-      additiveValue: 0
+      additiveValue: 171.73
       multiplyValue: 1
   scrollSpeed:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
-      mode: 1
+      mode: 3
       customValue: 100
-      additiveValue: 0
-      multiplyValue: 1
+      additiveValue: 455
+      multiplyValue: 15.49
   sunInitialRotation:
     m_OverrideState: 0
-    m_Value: -62.271805
+    m_Value: 174.02814
   lockSun:
     m_OverrideState: 0
     m_Value: 1

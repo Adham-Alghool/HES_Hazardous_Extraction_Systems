@@ -1002,6 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipEngineAudioManager
   soundData: {fileID: 11400000, guid: cf95d7430589abb4391be3994c5ed45f, type: 2}
+  flightModel: {fileID: 11400000, guid: 8cac48de960cc7d46aee836766a8de19, type: 2}
 --- !u!1 &845434700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1294,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135591645}
   m_LocalRotation: {x: -0.00000012636158, y: -0.7071067, z: -0.7071069, w: -0.0000001263616}
-  m_LocalPosition: {x: 0, y: 0, z: -0.06}
+  m_LocalPosition: {x: 0, y: 0, z: -0.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1324,11 +1325,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HULL: 100%
-
-    LASER: 100%
-
-    O2: 15%'
+  m_text: 0 M/S
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd4f52ecc83945d4790125e2ad2ac27b, type: 2}
   m_sharedMaterial: {fileID: 5771645329811014280, guid: fd4f52ecc83945d4790125e2ad2ac27b, type: 2}
@@ -2237,7 +2234,7 @@ Light:
   serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 553.52905
+  m_Intensity: 516.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2796,6 +2793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1836834862}
+  - component: {fileID: 1836834863}
   m_Layer: 0
   m_Name: 3D UI
   m_TagString: Untagged
@@ -2819,6 +2817,19 @@ Transform:
   - {fileID: 2010643477}
   m_Father: {fileID: 543450651853258964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1836834863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836834861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085af56918814e0429392bb549e878dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  SpeedIndicator: {fileID: 1135591647}
 --- !u!1 &1877019604
 GameObject:
   m_ObjectHideFlags: 0

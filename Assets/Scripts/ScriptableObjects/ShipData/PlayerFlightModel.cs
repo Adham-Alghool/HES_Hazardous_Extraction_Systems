@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerFlightModel : ScriptableObject
 {
     public float engineSpoolTime = 0.8f;
+    public float engineSpoolIdleRate = 2f; // How fast the spool should lose its... spool
     public float acceleration = 15f;
     public float kickForce = 80f;
     public float angularForce = 8f;

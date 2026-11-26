@@ -62,6 +62,9 @@
 		<relationship name="modules">
 			<destination>{e21132d5-312c-441c-b649-fae83b4a47db}</destination>
 		</relationship>
+		<relationship name="markers">
+			<destination>{74620c7a-be8e-4d5d-9976-fc81b5a19766}</destination>
+		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{ecd8661c-aee0-4135-981a-5a011a9c682e}">
 		<property name="volume">
@@ -103,6 +106,20 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{05d31211-8185-4df7-9e0d-bbb256954f0d}" />
+	<object class="LoopRegion" id="{74620c7a-be8e-4d5d-9976-fc81b5a19766}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="length">
+			<value>20</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{54f38873-0f96-423f-aa65-55d34a2540f3}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{2d9499f6-2c73-4aca-ad00-32ae14680361}</destination>
+		</relationship>
+	</object>
 	<object class="ADSRModulator" id="{6236041a-add7-41bc-8c4e-a9c2ec360522}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>

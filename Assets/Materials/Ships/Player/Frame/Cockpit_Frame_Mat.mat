@@ -33,6 +33,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_070fb808b0f44a8fb8a1d25ba298fb9e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c04703db03e190c439f0d71f1fe2919d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_7205f631127242838da2200a3290f73d_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: e3dd2f45ebcd35e4a80ccd060779f3fb, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -43,6 +47,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_d2666d24e5de4826bd4e0593ca71df91_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: c3798c65523207c48ad9aee926ffebf2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_dd4b6ae0e94d4e13b77bcdc1bad240ea_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_fc088870fa8d4262b4c52b87f099e2f6_Texture_1_Texture2D:
@@ -82,7 +90,7 @@ Material:
     - _ExcludeFromTUAndAA: 0
     - _MaterialID: 1
     - _MaterialTypeMask: 2
-    - _Metallic_Remover: 0
+    - _Metallic_Remover: 1
     - _OpaqueCullMode: 2
     - _PerPixelSorting: 0
     - _RayTracing: 0

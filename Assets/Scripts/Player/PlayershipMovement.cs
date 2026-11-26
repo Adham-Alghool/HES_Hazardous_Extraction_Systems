@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class PlayershipMovement : MonoBehaviour
 {
@@ -60,7 +59,7 @@ public class PlayershipMovement : MonoBehaviour
                 Debug.LogError("BURNER STATUS CASE NOT CONSIDERED");
                 break;
         }
-
+        SpoolerIdler(); // To keep systems consistent and prevent bugs, the spooler should automatically be losing energy most of the time.
         HandleRotation();
     }
     
@@ -81,9 +80,6 @@ public class PlayershipMovement : MonoBehaviour
 
     void handleSpooling()
     {
-        float spoolProgress = spoolingTimer / flightModel.engineSpoolTime;
-        whileSpooling?.Invoke(spoolProgress);
-
         if (input.throttle > 0)
         {
             // CONTINUOUS BLOCK
@@ -95,17 +91,24 @@ public class PlayershipMovement : MonoBehaviour
                 spoolingTimer = 0;
             }
         }
-        else
+    }
+
+    void SpoolerIdler()
+    {
+        float spoolProgress = spoolingTimer / flightModel.engineSpoolTime;
+        if(spoolProgress > 0) whileSpooling?.Invoke(spoolProgress);
+
+        // CONTINUOUS BLOCK
+        if (input.throttle == 0 && spoolingTimer > 0)
         {
-            // CONTINUOUS BLOCK
-            spoolingTimer -= Time.deltaTime;
-            // DISCRETE BLOCK
-            if (spoolingTimer <= 0)
-            {
-                onIdle?.Invoke();
-                currentStatus = burnerStatus.idling;
-                spoolingTimer = 0;
-            }
+            spoolingTimer = Mathf.Max(0, spoolingTimer - Time.deltaTime * flightModel.engineSpoolIdleRate);
+        }
+        // DISCRETE BLOCK
+        if (currentStatus == burnerStatus.spooling && input.throttle == 0 && spoolingTimer <= 0)
+        {
+            onIdle?.Invoke();
+            currentStatus = burnerStatus.idling;
+            spoolingTimer = 0;
         }
     }
 
@@ -171,6 +174,7 @@ public class PlayershipMovement : MonoBehaviour
                 return;
             }
             // CONTINUOUS BLOCK
+            
             Vector3 desiredAcceleration = -rb.linearVelocity * rb.mass / Time.fixedDeltaTime;
             Vector3 brakingAcceleration = Vector3.ClampMagnitude(desiredAcceleration, flightModel.decelerationForce);
             rb.AddForce(brakingAcceleration);

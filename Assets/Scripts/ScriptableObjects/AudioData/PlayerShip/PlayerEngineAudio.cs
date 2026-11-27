@@ -5,6 +5,8 @@ using FMODUnity;
 public class PlayerEngineAudio : ScriptableObject
 {
     public EventReference engineKickEvent;
+    public EventReference engineBurnEvent;
+    public EventReference engineIdleEvent;
     public EventReference engineSpoolEvent;
     public EventReference engineHaltLoopEvent;
 }

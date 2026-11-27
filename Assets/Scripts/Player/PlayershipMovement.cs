@@ -16,6 +16,7 @@ public class PlayershipMovement : MonoBehaviour
     // Public events for audiovisual changes and whatnot
 
     public static event Action onIdle;
+    public static event Action whileIdling;
     public static event Action onSpool;
     public static event Action<float> whileSpooling; // Feed in spool progress.
     public static event Action onKick;
@@ -68,6 +69,7 @@ public class PlayershipMovement : MonoBehaviour
         if (input.throttle == 0)
         {
             // CONTINUOUS BLOCK
+            whileIdling?.Invoke();
             return;
         }
         else

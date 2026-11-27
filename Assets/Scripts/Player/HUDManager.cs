@@ -3,6 +3,10 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
+    [Header("DATA_CARTRIDGE")]
+    [SerializeField] HUDData hudData;
+
+    [Header("HUD TEXT FIELDS")]
     [SerializeField] TextMeshPro SpeedIndicator;
     [SerializeField] TextMeshPro EngineIndicator;
 
@@ -23,6 +27,7 @@ public class HUDManager : MonoBehaviour
         PlayershipMovement.whileSpooling += ShowSpool;
         PlayershipMovement.whileBurning += ShowBurn;
         PlayershipMovement.whileHalting += ShowHalting;
+        PlayershipMovement.finishedHalting += ClearHaltArrows;
     }
 
     // Update is called once per frame
@@ -39,7 +44,7 @@ public class HUDManager : MonoBehaviour
 
     void ShowSpool(float progress)
     {
-        EngineIndicator.text = ArrowProgressBar(progress, 3, "SPOOLING");
+        EngineIndicator.text = ArrowProgressBar(progress, hudData.maxArrows, "SPOOLING");
     }
 
     void ShowBurn()
@@ -49,7 +54,12 @@ public class HUDManager : MonoBehaviour
 
     void ShowHalting(float disposeOfMe) // Pass this float in so our event thing stays happy. We COULD use it for a progress bar tho.
     {
-        EngineIndicator.text = ArrowLoadingBar("HALTING", 3, 0.33f);
+        EngineIndicator.text = ArrowLoadingBar("HALTING", hudData.maxArrows, hudData.arrowLoadingBarUpdateRate);
+    }
+
+    void ClearHaltArrows()
+    {
+        ArrowLoadingBarCount = 0;
     }
 
     string ArrowProgressBar(float progressNormalized, int maxIncrements, string Message) // This is used to show a progress bar. Good for stuff like spooling the engine.
@@ -84,5 +94,6 @@ public class HUDManager : MonoBehaviour
         PlayershipMovement.whileSpooling -= ShowSpool;
         PlayershipMovement.whileBurning -= ShowBurn;
         PlayershipMovement.whileHalting -= ShowHalting;
+        PlayershipMovement.finishedHalting -= ClearHaltArrows;
     }
 }

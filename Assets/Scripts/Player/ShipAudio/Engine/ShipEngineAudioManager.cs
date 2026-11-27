@@ -86,9 +86,16 @@ public class ShipEngineAudioManager : MonoBehaviour
         PlayershipMovement.onSpool -= StartSpool;
         PlayershipMovement.whileSpooling -= RunSpool;
         PlayershipMovement.onIdle -= EndSpool;
+        PlayershipMovement.onIdle -= EndHalt;
+
+        PlayershipMovement.onHalt -= StartHalt;
+        PlayershipMovement.whileHalting -= RunHalt;
 
         // Cleanup all instance garbage
+        spoolInstance.stop(STOP_MODE.IMMEDIATE);
         spoolInstance.release();
+        haltLoopInstance.stop(STOP_MODE.IMMEDIATE);
+        haltLoopInstance.release();
     }
 }
 // test push

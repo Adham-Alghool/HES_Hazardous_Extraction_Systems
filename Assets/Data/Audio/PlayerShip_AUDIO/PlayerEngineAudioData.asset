@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEngineAudio
   engineKickEvent:
     Guid:
-      Data1: 11253376
-      Data2: 1206862261
-      Data3: -963155059
-      Data4: 619460679
-    Path: event:/EngineKickSFX
+      Data1: -41379290
+      Data2: 1121180975
+      Data3: -25046391
+      Data4: 1871246987
+    Path: event:/engine_kick
   engineSpoolEvent:
     Guid:
       Data1: -1724843314

@@ -19,6 +19,13 @@ MonoBehaviour:
       Data3: -25046391
       Data4: 1871246987
     Path: event:/engine_kick
+  engineBurnEvent:
+    Guid:
+      Data1: -1456203585
+      Data2: 1236506275
+      Data3: -1682124657
+      Data4: 137231375
+    Path: event:/engine_burn
   engineSpoolEvent:
     Guid:
       Data1: -1724843314

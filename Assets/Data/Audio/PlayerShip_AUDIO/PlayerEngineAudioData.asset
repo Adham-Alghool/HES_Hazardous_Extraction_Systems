@@ -33,6 +33,13 @@ MonoBehaviour:
       Data3: 467225474
       Data4: 312557043
     Path: event:/engine_idle
+  engineHaltEvent:
+    Guid:
+      Data1: 266345621
+      Data2: 1136159202
+      Data3: -1067543125
+      Data4: 1472185789
+    Path: event:/engine_halt
   engineSpoolEvent:
     Guid:
       Data1: -1724843314
@@ -40,10 +47,17 @@ MonoBehaviour:
       Data3: 1331346577
       Data4: -1074159881
     Path: event:/EngineSpoolSFX
+  engineSpoolOneShotEvent:
+    Guid:
+      Data1: -933383682
+      Data2: 1133755972
+      Data3: 1228763551
+      Data4: -974195413
+    Path: event:/engine_spool
   engineHaltLoopEvent:
     Guid:
-      Data1: 721298148
-      Data2: 1112803289
-      Data3: 585499564
-      Data4: -1731633308
-    Path: event:/EngineHaltSFX
+      Data1: 1520955186
+      Data2: 1272400467
+      Data3: -14067803
+      Data4: 1577360611
+    Path: event:/engine_halt_loop

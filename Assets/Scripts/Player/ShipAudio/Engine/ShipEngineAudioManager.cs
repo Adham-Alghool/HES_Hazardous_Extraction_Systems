@@ -5,7 +5,6 @@ using FMOD.Studio;
 public class ShipEngineAudioManager : MonoBehaviour
 {
     [SerializeField] PlayerEngineAudio soundData;
-    [SerializeField] PlayerFlightModel flightModel;
 
     // Event references so that we can prepare and run looping audio clips
     EventInstance spoolInstance;
@@ -15,6 +14,7 @@ public class ShipEngineAudioManager : MonoBehaviour
     bool burnLoopActive;
     bool idleLoopActive;
     bool idleLoopStartAttempted;
+    bool haltLoopActive;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnEnable()
@@ -31,14 +31,13 @@ public class ShipEngineAudioManager : MonoBehaviour
 
         PlayershipMovement.onIdle += EndSpool;
         PlayershipMovement.onIdle += StopBurnLoop;
-        PlayershipMovement.onIdle += EndHalt;
+        PlayershipMovement.onIdle += StopHaltLoop;
 
         PlayershipMovement.onHalt += StartHalt;
-        PlayershipMovement.whileHalting += RunHalt;
+        PlayershipMovement.onSpool += StopHaltLoop;
 
         // Looping audio fetching
         spoolInstance = RuntimeManager.CreateInstance(soundData.engineSpoolEvent);
-        haltLoopInstance = RuntimeManager.CreateInstance(soundData.engineHaltLoopEvent);
 
         // Loads event into memory. If you don't do this, it reads from disk, and your super cool responsive kick sound actually takes like half an hour to arrive.
         RuntimeManager.GetEventDescription(soundData.engineKickEvent).loadSampleData();
@@ -48,6 +47,7 @@ public class ShipEngineAudioManager : MonoBehaviour
 
     void StartSpool()
     {
+        RuntimeManager.PlayOneShot(soundData.engineSpoolOneShotEvent, transform.position);
         spoolInstance.setParameterByName("Spool", 0f, true);
         spoolInstance.start();
     }
@@ -228,23 +228,88 @@ public class ShipEngineAudioManager : MonoBehaviour
 
     void StartHalt(bool success)
     {
-        if (success)
+        if (!success || haltLoopActive)
         {
-            StopIdleLoop();
-            haltLoopInstance.setParameterByName("NormalizedSpeed", 1f, true);
-            haltLoopInstance.start();
+            return;
         }
+
+        RuntimeManager.PlayOneShot(soundData.engineHaltEvent, transform.position);
+        StopIdleLoop();
+
+        FMOD.Studio.EventDescription haltDescription;
+        try
+        {
+            haltDescription = RuntimeManager.GetEventDescription(soundData.engineHaltLoopEvent);
+        }
+        catch (EventNotFoundException exception)
+        {
+            Debug.LogError($"Failed to find engine_halt_loop FMOD event. Ensure its bank is built and loaded. {exception.Message}", this);
+            return;
+        }
+
+        FMOD.RESULT createResult = haltDescription.createInstance(out haltLoopInstance);
+        if (createResult != FMOD.RESULT.OK)
+        {
+            Debug.LogError($"Failed to create engine_halt_loop FMOD event instance: {createResult}", this);
+            if (haltLoopInstance.isValid())
+            {
+                haltLoopInstance.release();
+            }
+            haltLoopInstance = default;
+            return;
+        }
+
+        if (!haltLoopInstance.isValid())
+        {
+            Debug.LogError("FMOD created an invalid engine_halt_loop event instance.", this);
+            haltLoopInstance = default;
+            return;
+        }
+
+        FMOD.RESULT startResult = haltLoopInstance.start();
+        if (startResult != FMOD.RESULT.OK)
+        {
+            Debug.LogError($"Failed to start engine_halt_loop FMOD event: {startResult}", this);
+            if (haltLoopInstance.isValid())
+            {
+                haltLoopInstance.release();
+            }
+            haltLoopInstance = default;
+            return;
+        }
+
+        haltLoopActive = true;
     }
 
-    void RunHalt(float speed)
+    void StopHaltLoop()
     {
-        float normalizedSpeed = Mathf.Min((speed / flightModel.overspeedCondition), 1f);
-        haltLoopInstance.setParameterByName("NormalizedSpeed", normalizedSpeed);
-    }
+        if (!haltLoopActive)
+        {
+            return;
+        }
 
-    void EndHalt()
-    {
-        haltLoopInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        if (!haltLoopInstance.isValid())
+        {
+            Debug.LogError("engine_halt_loop FMOD event instance became invalid before stopping.", this);
+            haltLoopInstance = default;
+            haltLoopActive = false;
+            return;
+        }
+
+        FMOD.RESULT stopResult = haltLoopInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        if (stopResult != FMOD.RESULT.OK)
+        {
+            Debug.LogError($"Failed to stop engine_halt_loop FMOD event: {stopResult}", this);
+        }
+
+        FMOD.RESULT releaseResult = haltLoopInstance.release();
+        if (releaseResult != FMOD.RESULT.OK)
+        {
+            Debug.LogError($"Failed to release engine_halt_loop FMOD event instance: {releaseResult}", this);
+        }
+
+        haltLoopInstance = default;
+        haltLoopActive = false;
     }
 
     void PlayKickSound()
@@ -264,10 +329,10 @@ public class ShipEngineAudioManager : MonoBehaviour
         PlayershipMovement.whileIdling -= StartIdleLoop;
         PlayershipMovement.onIdle -= EndSpool;
         PlayershipMovement.onIdle -= StopBurnLoop;
-        PlayershipMovement.onIdle -= EndHalt;
+        PlayershipMovement.onIdle -= StopHaltLoop;
 
         PlayershipMovement.onHalt -= StartHalt;
-        PlayershipMovement.whileHalting -= RunHalt;
+        PlayershipMovement.onSpool -= StopHaltLoop;
 
         // Cleanup all instance garbage
         spoolInstance.stop(STOP_MODE.IMMEDIATE);
@@ -285,8 +350,12 @@ public class ShipEngineAudioManager : MonoBehaviour
         }
         idleLoopActive = false;
         idleLoopStartAttempted = false;
-        haltLoopInstance.stop(STOP_MODE.IMMEDIATE);
-        haltLoopInstance.release();
+        if (haltLoopInstance.isValid())
+        {
+            haltLoopInstance.stop(STOP_MODE.IMMEDIATE);
+            haltLoopInstance.release();
+        }
+        haltLoopActive = false;
     }
 }
 // test push
